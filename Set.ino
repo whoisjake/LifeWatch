@@ -1,4 +1,4 @@
-PROGMEM uint8_t odoDigits[] = { // Odometer-style digits
+static const uint8_t PROGMEM odoDigits[] = { // Odometer-style digits
   0x00,0x00,0x00,0x15,0x4A,0x15,0xB7,0x23,0xB7,0xC8,0x15,0xC8,0x6E,0x15,0x6E,
   0x0A,0x23,0x0A,0x00,0x00,0x00,0x4A,0xFF,0x4A,0x99,0x4A,0x99,0xFF,0x00,0xFF,
   0x6E,0x15,0x6E,0x2C,0x15,0x2C,0x00,0x00,0x00,0x00,0x4A,0x00,0xFF,0x00,0xFF,
@@ -289,7 +289,7 @@ void mode_set(uint8_t action) {
       // back to time display mode instead of the year setting.
       if(++dNum > DIGIT_24) dNum = DIGIT_YEAR0;
       destX = -pgm_read_byte(&xScroll[dNum]);
-  
+
       // When switching to first digit of new section,
       // fade out corresponding overlay symbol
       if((dNum==DIGIT_YEAR0) || (dNum==DIGIT_MON0) || (dNum==DIGIT_DAY0) ||
@@ -397,7 +397,7 @@ void flip() {
   }
 }
 
-PROGMEM uint8_t
+static const uint8_t PROGMEM
   symX[]      = { 0, 5, 14, 9, 5, 19 }, // Starting column # in symbols bitmap
   symOffset[] = { 2, 0,  0, 0, 0,  0 }; // Add to X when drawing symbol
 
@@ -418,7 +418,7 @@ void drawTime() {
     blit(symbols, 24, 5, pgm_read_byte(&symX[dNum / 2]), 0,
       curX + pgm_read_byte(&xOffset[dNum]) + pgm_read_byte(&symOffset[dNum / 2]), 1, 5, 5, b);
   }
- 
+
   for(i=DIGIT_YEAR0; i<=DIGIT_MIN1; i++) {
     // either skip or overwrite 'symfade' digits
     if(symFade && (i == dNum)) {
@@ -463,5 +463,3 @@ static void loadDigits(int in, uint8_t idx) {
   digit[idx    ] = in / 10;
   digit[idx + 1] = in - (digit[idx] * 10);
 }
-
-

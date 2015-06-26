@@ -9,7 +9,7 @@
 // unfortunate but normal, and the watch should be available again
 // after the battery's had some time to rest.
 
-PROGMEM uint16_t mVtable[] = { 2884, 2886, 2890, 2900, 65535 };
+static const uint16_t PROGMEM mVtable[] = { 2884, 2886, 2890, 2900, 65535 };
 
 void mode_battery(uint8_t action) {
 
@@ -49,5 +49,3 @@ void mode_battery(uint8_t action) {
   if(i > 0)                       watch.fillRect(3, 6-i, 2, i+1, fill);
   else if(watch.getCursorBlink()) watch.drawLine(3, 6, 4, 6, fill);
 }
-
-

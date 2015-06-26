@@ -64,5 +64,3 @@ void mode_binary(uint8_t action) {
     watch.drawPixel(x, 6, (digit[DIGIT_SEC1] & bit) ? b_set : b_clear);
   }
 }
-
-
